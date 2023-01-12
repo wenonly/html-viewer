@@ -1,5 +1,11 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import App from './App.vue';
+import './assets/css/style.css';
+import { createVueIframe } from './utils';
 
-createApp(App).mount('#app')
+interface createHtmlViewerOptions {}
+
+function createHtmlViewer(options: createHtmlViewerOptions = {}) {
+  return createVueIframe(App);
+}
+
+export default createHtmlViewer;
