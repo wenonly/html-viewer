@@ -1,0 +1,21 @@
+.html-root {
+  height: 100%;
+}
+
+.html-root .el-tabs {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.html-root .el-tabs__header {
+  margin-bottom: 0;
+}
+
+.html-root .el-tabs__content {
+  flex: 1;
+}
+
+.html-root .el-tabs__content .el-tab-pane {
+  height: 100%;
+}
