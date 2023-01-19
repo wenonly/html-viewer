@@ -11,7 +11,8 @@ function createHtmlViewer(options: createHtmlViewerOptions = {}) {
     App,
     {},
     {
-      width: '600px',
+      width: '900px',
+      height: '600px',
       stylesCss: [resetCss, ecss, globalCss],
     }
   );
