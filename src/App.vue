@@ -4,18 +4,26 @@ import { ref } from 'vue';
 import CodeEditor from './components/CodeEditor.vue';
 import HtmlIframe from './components/HtmlIframe.vue';
 
+import html from './tests/index.html?raw';
+import js from './tests/index.js?raw';
+import css from './tests/index.css?raw';
+
 const tab = ref('result');
 </script>
 
 <template>
   <el-tabs v-model="tab" class="html-tabs" type="card">
     <el-tab-pane label="效果" name="result">
-      <html-iframe />
+      <HtmlIframe :html="html" :javascript="js" :css="css" />
     </el-tab-pane>
     <el-tab-pane label="HTML" name="HTML">
-      <code-editor />
+      <CodeEditor theme="html" :value="html" />
     </el-tab-pane>
-    <el-tab-pane label="CSS" name="CSS">CSS</el-tab-pane>
-    <el-tab-pane label="JavaScript" name="JavaScript">JavaScript</el-tab-pane>
+    <el-tab-pane label="CSS" name="CSS">
+      <CodeEditor theme="css" :value="css" />
+    </el-tab-pane>
+    <el-tab-pane label="JavaScript" name="JavaScript">
+      <CodeEditor theme="javascript" :value="js" />
+    </el-tab-pane>
   </el-tabs>
 </template>
