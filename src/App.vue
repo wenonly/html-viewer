@@ -4,11 +4,19 @@ import { ref } from 'vue';
 import CodeEditor from './components/CodeEditor.vue';
 import HtmlIframe from './components/HtmlIframe.vue';
 
-import html from './tests/index.html?raw';
-import js from './tests/index.js?raw';
-import css from './tests/index.css?raw';
+// import html from './tests/index.html?raw';
+// import js from './tests/index.js?raw';
+// import css from './tests/index.css?raw';
 
 const tab = ref('result');
+
+interface AppProps {
+  html?: string;
+  js?: string;
+  css?: string;
+}
+
+const { html, js, css } = defineProps<AppProps>();
 </script>
 
 <template>

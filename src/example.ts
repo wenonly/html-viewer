@@ -1,4 +1,4 @@
-import createHtmlViewer from './main';
+import { createHtmlViewer } from './main';
 
 const app = document.querySelector('#app');
 
