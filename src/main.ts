@@ -1,6 +1,7 @@
-import ecss from 'element-plus/dist/index.css?raw';
+// import elementCss from 'element-plus/dist/index.css?raw';
 import resetCss from 'reset-css/reset.css?raw';
 import App from './App.vue';
+import miniElementCss from './assets/css/miniElement.css?raw';
 import globalCss from './assets/css/style.css?raw';
 import { createVueIframe } from './utils';
 
@@ -8,8 +9,7 @@ interface createHtmlViewerOptions {
   html?: string[] | string;
   javascript?: string[] | string;
   css?: string[] | string;
-  width?: string;
-  height?: string;
+  iframeStyle?: CSSStyleDeclaration;
 }
 
 export function createHtmlViewer(options: createHtmlViewerOptions = {}) {
@@ -25,9 +25,8 @@ export function createHtmlViewer(options: createHtmlViewerOptions = {}) {
           : options.javascript,
     },
     {
-      width: options.width ?? '100%',
-      height: options.height ?? '600px',
-      stylesCss: [resetCss, ecss, globalCss],
+      stylesCss: [resetCss, miniElementCss, globalCss],
+      iframeStyle: options.iframeStyle,
     }
   );
 }

@@ -20,7 +20,7 @@ const { html, js, css } = defineProps<AppProps>();
 </script>
 
 <template>
-  <el-tabs v-model="tab" class="html-tabs" type="card">
+  <el-tabs v-model="tab" class="html-tabs">
     <el-tab-pane label="效果" name="result">
       <HtmlIframe :html="html" :javascript="js" :css="css" />
     </el-tab-pane>

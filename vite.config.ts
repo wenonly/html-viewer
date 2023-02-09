@@ -12,7 +12,6 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, './src/main.ts'),
       name: 'HtmlViewer',
-      formats: ['es', 'umd'],
     },
     rollupOptions: {
       input: ['src/main.ts'],
