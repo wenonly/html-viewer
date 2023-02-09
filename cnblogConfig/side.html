@@ -1,9 +1,37 @@
 <script type="text/javascript">
-    window.htmlViewStack = {
-        html: [],
-        css: [],
-        js: [],
-        wrap: document.createElement('div')
+    function createHtmlIframe() {
+        const htmlViewStack = {
+            html: [],
+            css: [],
+            js: [],
+            wrap: document.createElement('div')
+        }
+        function appendHtmlViewer() {
+            if (htmlViewStack.html.length || htmlViewStack.css.length || htmlViewStack.js.length) {
+                htmlViewStack.wrap.appendChild(HtmlViewer.createHtmlViewer({
+                    html: htmlViewStack.html,
+                    css: htmlViewStack.css,
+                    js: htmlViewStack.js,
+                }))
+            }
+        }
+        const pres = document.querySelectorAll('#main pre')
+        for (let pre of pres) {
+            const text = pre.innerText
+            if (text.includes('<!-- htmlView:html -->')) {
+                htmlViewStack.html.push(text.replace('<!-- htmlView:html -->\n', ''))
+                pre.parentNode.removeChild(pre)
+            } else if (text.includes('/* htmlView:css */')) {
+                htmlViewStack.css.push(text.replace('/* htmlView:css */\n', ''))
+                pre.parentNode.removeChild(pre)
+            } else if (text.includes('/* htmlView:js */')) {
+                htmlViewStack.js.push(text.replace('/* htmlView:js */\n', ''))
+                pre.parentNode.removeChild(pre)
+            }
+        }
+        const postbody = document.querySelector('.blogpost-body')
+        postbody.appendChild(htmlViewStack.wrap)
+        appendHtmlViewer()
     }
     window.cnblogsConfig = {
         info: {
@@ -12,37 +40,11 @@
             avatar: 'https://pic.cnblogs.com/face/1115733/20230111161824.png', // 用户头像
         },
         hooks: {
-            beforeCode: function (_) {
-                const pres = document.querySelectorAll('#main pre')
-                for (let pre of pres) {
-                    const text = pre.innerText
-                    if (text.includes('<!-- htmlView:html -->')) {
-                        window.htmlViewStack.html.push(text.replace('<!-- htmlView:html -->\n', ''))
-                        pre.parentNode.removeChild(pre)
-                    } else if (text.includes('/* htmlView:css */')) {
-                        window.htmlViewStack.css.push(text.replace('/* htmlView:css */\n', ''))
-                        pre.parentNode.removeChild(pre)
-                    } else if (text.includes('/* htmlView:js */')) {
-                        window.htmlViewStack.js.push(text.replace('/* htmlView:js */\n', ''))
-                        pre.parentNode.removeChild(pre)
-                    }
-                }
-                const artSuf = document.querySelector('.articleSuffix-flg')
-                artSuf.parentNode.insertBefore(window.htmlViewStack.wrap, artSuf)
-                appendHtmlViewer()
+            beforeLoading: function () {
+                createHtmlIframe()
             }
-        }
-    }
-    function appendHtmlViewer() {
-        if (window.htmlViewStack.html.length || window.htmlViewStack.css.length || window.htmlViewStack.js.length) {
-            window.htmlViewStack.wrap.appendChild(HtmlViewer.createHtmlViewer({
-                html: window.htmlViewStack.html,
-                css: window.htmlViewStack.css,
-                js: window.htmlViewStack.js,
-            }))
         }
     }
 </script>
 <script src="https://files.cnblogs.com/files/blogs/336226/html-viewer.umd.js" defer></script>
 <script src="https://cdn.jsdelivr.net/gh/BNDong/Cnblogs-Theme-SimpleMemory@v2.1.2/dist/simpleMemory.js" defer></script>
-<!-- <script src="https://simplememory.wenl.xyz/dist/simpleMemory.js" defer></script> -->
