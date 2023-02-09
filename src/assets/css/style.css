@@ -14,6 +14,7 @@
 
 .html-root .el-tabs__content {
   flex: 1;
+  overflow-y: auto;
 }
 
 .html-root .el-tabs__content .el-tab-pane {

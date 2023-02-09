@@ -22,7 +22,7 @@ export function createVueIframe(
     iframe.style,
     {
       width: '100%',
-      height: '300px',
+      height: '500px',
     },
     options.iframeStyle
   );

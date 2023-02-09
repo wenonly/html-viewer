@@ -23288,6 +23288,7 @@ const d_ = /* @__PURE__ */ I.baseTheme({
 
 .html-root .el-tabs__content {
   flex: 1;
+  overflow-y: auto;
 }
 
 .html-root .el-tabs__content .el-tab-pane {
@@ -23427,7 +23428,7 @@ function U_(i, e, t = {}) {
     n.style,
     {
       width: "100%",
-      height: "300px"
+      height: "500px"
     },
     t.iframeStyle
   ), n.onload = () => {
