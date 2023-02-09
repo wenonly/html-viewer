@@ -3,7 +3,7 @@ import resetCss from 'reset-css/reset.css?raw';
 import App from './App.vue';
 import miniElementCss from './assets/css/miniElement.css?raw';
 import globalCss from './assets/css/style.css?raw';
-import { createVueIframe } from './utils';
+import { callHook, createVueIframe } from './utils';
 
 interface createHtmlViewerOptions {
   html?: string[] | string;
@@ -26,7 +26,13 @@ export function createHtmlViewer(options: createHtmlViewerOptions = {}) {
     },
     {
       stylesCss: [resetCss, miniElementCss, globalCss],
-      iframeStyle: options.iframeStyle,
+      iframeStyle: Object.assign(
+        {},
+        window.htmlViewerConfig?.iframeStyle,
+        options.iframeStyle
+      ),
     }
   );
 }
+
+callHook('ready');

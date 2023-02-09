@@ -23440,7 +23440,12 @@ function U_(i, e, t = {}) {
     }), (o = n.contentDocument) == null || o.body.appendChild(r), u1(i, e).mount(r);
   }, n;
 }
-function L_(i = {}) {
+function I_(i, ...e) {
+  var t, n, r, s;
+  ((n = (t = window.htmlViewerConfig) == null ? void 0 : t.hooks) == null ? void 0 : n[i]) instanceof Function && ((s = (r = window.htmlViewerConfig) == null ? void 0 : r.hooks) == null || s[i](...e));
+}
+function z_(i = {}) {
+  var e;
   return U_(
     m_,
     {
@@ -23453,10 +23458,15 @@ function L_(i = {}) {
     },
     {
       stylesCss: [hb, g_, b_],
-      iframeStyle: i.iframeStyle
+      iframeStyle: Object.assign(
+        {},
+        (e = window.htmlViewerConfig) == null ? void 0 : e.iframeStyle,
+        i.iframeStyle
+      )
     }
   );
 }
+I_("ready");
 export {
-  L_ as createHtmlViewer
+  z_ as createHtmlViewer
 };

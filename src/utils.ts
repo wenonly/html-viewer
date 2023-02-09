@@ -38,3 +38,9 @@ export function createVueIframe(
   };
   return iframe;
 }
+
+export function callHook(hook: string, ...args: any[]) {
+  if (window.htmlViewerConfig?.hooks?.[hook] instanceof Function) {
+    window.htmlViewerConfig?.hooks?.[hook](...args);
+  }
+}
