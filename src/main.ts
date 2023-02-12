@@ -3,7 +3,7 @@ import resetCss from "reset-css/reset.css?raw";
 import App from "./App.vue";
 import miniElementCss from "./assets/css/miniElement.css?raw";
 import globalCss from "./assets/css/style.css?raw";
-import { callHook, createVueIframe } from "./utils";
+import { createVueIframe } from "./utils";
 
 interface createHtmlViewerOptions {
   html?: string[] | string;
@@ -31,5 +31,3 @@ export function createHtmlViewer(options: createHtmlViewerOptions = {}) {
     }
   );
 }
-
-callHook("ready");

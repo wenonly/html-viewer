@@ -23120,11 +23120,7 @@ function N_(i, e, t = {}) {
     }), (o = n.contentDocument) == null || o.body.appendChild(r), u1(i, e).mount(r);
   }, n;
 }
-function M_(i, ...e) {
-  var t, n, r, s;
-  ((n = (t = window.htmlViewerConfig) == null ? void 0 : t.hooks) == null ? void 0 : n[i]) instanceof Function && ((s = (r = window.htmlViewerConfig) == null ? void 0 : r.hooks) == null || s[i](...e));
-}
-const Y_ = (i) => {
+const M_ = (i) => {
   const e = () => i.state.doc.toString();
   return {
     getDoc: e,
@@ -23164,7 +23160,7 @@ const Y_ = (i) => {
           })
         ]
       });
-      const o = Y_(s.value);
+      const o = M_(s.value);
       Je(
         () => t.modelValue,
         (l) => {
@@ -23177,7 +23173,7 @@ const Y_ = (i) => {
       style: { width: "100%", height: "100%" }
     }, null, 512));
   }
-}), j_ = /* @__PURE__ */ Nt({
+}), Y_ = /* @__PURE__ */ Nt({
   __name: "HtmlIframe",
   props: {
     html: null,
@@ -23210,7 +23206,7 @@ const Y_ = (i) => {
       style: { width: "100%", height: "100%" }
     }, null, 512));
   }
-}), U_ = /* @__PURE__ */ Nt({
+}), j_ = /* @__PURE__ */ Nt({
   __name: "App",
   props: {
     html: null,
@@ -23234,7 +23230,7 @@ const Y_ = (i) => {
           name: "result"
         }, {
           default: An(() => [
-            ce(j_, {
+            ce(Y_, {
               html: n.html,
               javascript: n.js,
               css: n.css
@@ -23285,7 +23281,7 @@ const Y_ = (i) => {
       _: 1
     }, 8, ["modelValue"]));
   }
-}), I_ = `.el-tabs {
+}), U_ = `.el-tabs {
   --el-tabs-header-height: 40px;
   --el-border-color-light: #e4e7ed;
   --el-transition-duration: 0.3s;
@@ -23459,7 +23455,7 @@ const Y_ = (i) => {
   color: var(--color);
   font-size: inherit;
 }
-`, q_ = `.html-root {
+`, I_ = `.html-root {
   height: 100%;
 }
 
@@ -23486,10 +23482,10 @@ const Y_ = (i) => {
   height: 100%;
 }
 `;
-function G_(i = {}) {
+function z_(i = {}) {
   var e;
   return N_(
-    U_,
+    j_,
     {
       html: i.html instanceof Array ? i.html.join(`
 `) : i.html,
@@ -23499,7 +23495,7 @@ function G_(i = {}) {
 `) : i.js
     },
     {
-      stylesCss: [hb, I_, q_],
+      stylesCss: [hb, U_, I_],
       iframeStyle: Object.assign(
         {},
         (e = window.htmlViewerConfig) == null ? void 0 : e.iframeStyle,
@@ -23508,7 +23504,6 @@ function G_(i = {}) {
     }
   );
 }
-M_("ready");
 export {
-  G_ as createHtmlViewer
+  z_ as createHtmlViewer
 };
