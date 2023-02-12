@@ -22,6 +22,16 @@ const iframe = HtmlViewer.createHtmlViewer({
 });
 ```
 
+```typescript
+// HtmlViewer.createHtmlViewer 的参数
+interface createHtmlViewerOptions {
+  html?: string[] | string;
+  js?: string[] | string;
+  css?: string[] | string;
+  iframeStyle?: CSSStyleDeclaration; // iframe的style样式
+}
+```
+
 4. 将`iframe`嵌入到需要的位置
 
 ```javascript
