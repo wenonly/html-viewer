@@ -30,8 +30,10 @@
             }
         }
         const postbody = document.querySelector('.blogpost-body')
-        postbody.appendChild(htmlViewStack.wrap)
-        appendHtmlViewer()
+        if (postbody) {
+            postbody.appendChild(htmlViewStack.wrap)
+            appendHtmlViewer()
+        }
     }
     window.cnblogsConfig = {
         info: {
