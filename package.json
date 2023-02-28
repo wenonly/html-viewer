@@ -1,5 +1,5 @@
 {
-  "name": "html-viewer",
+  "name": "@wenonly/html-viewer",
   "version": "1.0.0",
   "type": "module",
   "main": "./lib/html-viewer.umd.js",
