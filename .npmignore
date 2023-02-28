@@ -1,0 +1,9 @@
+src
+server
+public
+dist
+node_modules
+demo
+configs
+.vscode
+index.html
