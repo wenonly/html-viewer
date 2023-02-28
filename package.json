@@ -17,6 +17,9 @@
     "dev:lib": "vite --config configs/vite.lib.example.config.ts",
     "build:lib": "vue-tsc && vite build --config configs/vite.lib.config.ts"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@codemirror/commands": "^6.2.0",
     "@codemirror/lang-css": "^6.0.1",
