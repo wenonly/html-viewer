@@ -1,6 +1,5 @@
 {
   "name": "html-viewer",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
   "main": "./lib/html-viewer.umd.js",
