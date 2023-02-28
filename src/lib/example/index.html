@@ -6,15 +6,20 @@
     <title>html</title>
 
     <style>
-      iframe {
-        border: 1px solid rgb(208, 208, 208);
-        margin-left: 10px;
-        margin-top: 10px;
+      html,
+      body {
+        height: 100%;
+      }
+      #app {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
       }
     </style>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="src/main.ts"></script>
+    <script type="module" src="index.ts"></script>
   </body>
 </html>

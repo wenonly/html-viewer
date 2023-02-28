@@ -1,12 +1,22 @@
 {
   "name": "html-viewer",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "main": "./lib/html-viewer.umd.js",
+  "module": "./lib/html-viewer.js",
+  "exports": {
+    ".": {
+      "import": "./lib/html-viewer.js",
+      "require": "./lib/html-viewer.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "server": "nodemon --exec node --loader ts-node/esm --no-warnings ./server/main.ts",
+    "dev:lib": "vite --config configs/vite.lib.example.config.ts",
+    "build:lib": "vue-tsc && vite build --config configs/vite.lib.config.ts"
   },
   "dependencies": {
     "@codemirror/commands": "^6.2.0",
@@ -18,13 +28,17 @@
     "@types/shortid": "^0.0.29",
     "codemirror": "^6.0.1",
     "element-plus": "^2.2.28",
+    "express": "^4.18.2",
     "reset-css": "^5.0.1",
     "shortid": "^2.2.16",
     "vue": "^3.2.45"
   },
   "devDependencies": {
+    "@types/express": "^4.17.17",
     "@types/node": "^18.13.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.3",
     "vite": "^4.0.0",
     "vue-tsc": "^1.0.11"
