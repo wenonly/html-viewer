@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { loadAsync } from 'jszip';
 import { generate } from 'shortid';
 import { createApp } from 'vue';
 
@@ -44,3 +46,58 @@ export function callHook(hook: string, ...args: any[]) {
     window.htmlViewerConfig?.hooks?.[hook](...args);
   }
 }
+
+/**
+ * 加载zip并返回 code
+ * zip 格式：
+ *  - folder
+ *    |- index.html
+ *    |- index.css
+ *    |- index.js
+ * @param url zip文件地址
+ * @returns { html, css, js }
+ */
+export const loadZipHtmlCode = (
+  url: string
+): Promise<{
+  html?: string;
+  css?: string;
+  js?: string;
+}> => {
+  return axios.get(url, { responseType: 'blob' }).then((res) => {
+    if (res.status !== 200) {
+      console.error('request html filePath error');
+      return {};
+    }
+    return loadAsync(res.data)
+      .then((zip) => {
+        const filesName = Object.keys(zip.files);
+        const filesMap = Object.fromEntries(
+          filesName.map((filePath) => {
+            const key = filePath.includes('index.html')
+              ? 'html'
+              : filePath.includes('index.css')
+              ? 'css'
+              : filePath.includes('index.js')
+              ? 'js'
+              : 'codeFolder';
+            return [key, filePath];
+          })
+        );
+        return Promise.all([
+          zip.file(filesMap.html)?.async('string'),
+          zip.file(filesMap.css)?.async('string'),
+          zip.file(filesMap.js)?.async('string'),
+        ]);
+      })
+      .then(([html, css, js]) => {
+        return {
+          html,
+          css,
+          js,
+        };
+      });
+  });
+};
+
+// loadZipHtmlCode('http://localhost:5173/code.zip');
