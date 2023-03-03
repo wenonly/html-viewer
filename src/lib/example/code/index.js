@@ -1,4 +1,3 @@
-/* htmlView:js */
 var data = {
   // 初始头位置
   x: 5,
