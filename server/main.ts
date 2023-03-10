@@ -1,6 +1,9 @@
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
+import * as babel from '@babel/core'
+import fs from 'fs'
+const __dirname = path.resolve();
 
 async function createServer() {
   const app = express();
@@ -12,7 +15,7 @@ async function createServer() {
     appType: 'spa', // 不引入 Vite 默认的 HTML 处理中间件
   });
   // 将 vite 的 connect 实例作中间件使用
-  app.use(vite.middlewares);
+  // app.use(vite.middlewares);
 
   //   app.use('*', async (req, res) => {
   //     // 如果 `middlewareMode` 是 `'ssr'`，应在此为 `index.html` 提供服务.
@@ -20,6 +23,14 @@ async function createServer() {
   //     // 因为 Vite 自会接管
   //     // console.log('---')
   //   })
+
+  app.use('*', (req, res) => {
+    const code = fs.readFileSync(path.resolve(__dirname, './server/db/codeTemplate.js'), {encoding: 'utf-8'})
+    const result = babel.transform(code, {
+      configFile: path.resolve(__dirname, './server/babel.config.json')
+    })
+    res.send(result?.code)
+  })
 
   app.listen(8081);
 }
