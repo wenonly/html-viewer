@@ -1,20 +1,17 @@
-// value 都需要 base64 加密
+const currentScript = document.currentScript;
+
+const html = ```<<html>>```;
+const css = ```<<css>>```;
+const js = ```<<js>>```;
+
 const exportData = {
-  html: `<<html>>`,
-  css: `<<css>>`,
-  js: `<<js>>`,
+  html,
+  css,
+  js,
 };
 
-// 用于 浏览器 跨域获取数据
-const currentScript = document.currentScript;
-if (currentScript) {
-  const src = currentScript.src;
-  const urlObj = new URL(src);
-  const exportFuncName = urlObj.searchParams.get('exportFunc');
-  const exportFunc = window?.[exportFuncName];
-  if (typeof exportFunc === 'function') {
-    exportFunc(exportData);
-  }
-}
+const getExportData = function () {
+  return exportData;
+};
 
-export default exportData;
+export default getExportData;

@@ -1,18 +1,22 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import code, { CodeType } from 'models/code';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import * as babel from '@babel/core';
+import * as fs from 'fs';
+import * as path from 'path';
 
-@Controller('/code')
+@Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post('/add')
-  addCode(@Body() body: CodeType) {
-    code.add({
-      html: body.html,
-      css: body.css,
-      js: body.js,
+  @Get()
+  getHello(): string {
+    const code = fs.readFileSync(
+      path.resolve(__dirname, '../db/codeTemplate.js'),
+      { encoding: 'utf-8' },
+    );
+    const result = babel.transform(code, {
+      configFile: path.resolve(__dirname, '../config/babel.config.json'),
     });
-    return body;
+    return result?.code;
   }
 }
