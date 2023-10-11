@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ElTabPane, ElTabs } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
-import CodeEditor from '../components/CodeEditor.vue';
-import HtmlIframe from '../components/HtmlIframe.vue';
+import CodeEditor from './components/CodeEditor.vue';
+import HtmlIframe from './components/HtmlIframe.vue';
 import { loadZipHtmlCode } from './utils';
 
 // import css from "./tests/index.css?raw";

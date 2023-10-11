@@ -11,12 +11,12 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, '../src/lib/index.ts'),
+      entry: path.resolve(__dirname, '../src/index.ts'),
       name: 'HtmlViewer',
     },
     rollupOptions: {
       plugins: process.env.ANALYZE ? [visualizer({ open: true })] : undefined,
-      input: ['src/lib/index.ts'],
+      input: ['src/index.ts'],
       output: [
         {
           format: 'es',

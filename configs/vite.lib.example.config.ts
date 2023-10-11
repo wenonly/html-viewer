@@ -4,6 +4,6 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: path.resolve(__dirname, '../src/lib/example'),
+  root: path.resolve(__dirname, '../src/example'),
   plugins: [vue()],
 });
