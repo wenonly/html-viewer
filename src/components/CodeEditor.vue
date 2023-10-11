@@ -8,11 +8,6 @@ import { basicSetup } from "codemirror";
 import { onMounted, ref, watch } from "vue";
 import { getEditorTools } from "../utils";
 
-interface CodeEditorProps {
-  theme?: "javascript" | "html" | "css";
-  modelValue?: string;
-}
-
 const themeExts = {
   html,
   javascript,
@@ -22,7 +17,10 @@ const themeExts = {
 const codeWrapper = ref<HTMLDivElement>();
 const editor = ref<EditorView>();
 
-const props = defineProps<CodeEditorProps>();
+const props = defineProps<{
+  theme?: "javascript" | "html" | "css";
+  modelValue?: string;
+}>();
 const emit = defineEmits<{
   (event: "update:modelValue", value: string): void;
 }>();

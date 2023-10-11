@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { createHtmlViewer } from '.';
+import { onMounted, ref } from "vue";
+import { createHtmlViewer } from ".";
 
-interface HtmlViewerWrapProps {
+const props = defineProps<{
   src?: string;
   iframeWidth?: string;
   iframeHeight?: string;
   wrapperStyle?: string;
-}
-
-const props = defineProps<HtmlViewerWrapProps>();
+}>();
 const wrapRef = ref<HTMLElement>();
 
 onMounted(() => {

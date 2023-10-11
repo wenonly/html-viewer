@@ -11,14 +11,12 @@ import { loadZipHtmlCode } from './utils';
 
 const tab = ref('result');
 
-interface AppProps {
+const props = defineProps<{
   html?: string;
   js?: string;
   css?: string;
   src?: string;
-}
-
-const props = defineProps<AppProps>();
+}>();
 const data = reactive({
   html: props.html,
   css: props.css,

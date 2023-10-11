@@ -1,15 +1,10 @@
 {
   "name": "@wenonly/html-viewer",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "type": "module",
   "main": "./lib/html-viewer.umd.js",
   "module": "./lib/html-viewer.js",
-  "exports": {
-    ".": {
-      "import": "./lib/html-viewer.js",
-      "require": "./lib/html-viewer.umd.js"
-    }
-  },
+  "types": "types",
   "scripts": {
     "dev": "vite --config configs/vite.lib.example.config.ts",
     "build": "vue-tsc && vite build --config configs/vite.lib.config.ts",

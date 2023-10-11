@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import { ElTabPane, ElTabs } from 'element-plus';
-import { onMounted, reactive, ref } from 'vue';
-import CodeEditor from './components/CodeEditor.vue';
-import HtmlIframe from './components/HtmlIframe.vue';
-import { loadZipHtmlCode } from './utils';
+import { ElTabPane, ElTabs } from "element-plus";
+import { onMounted, reactive, ref } from "vue";
+import CodeEditor from "./components/CodeEditor.vue";
+import HtmlIframe from "./components/HtmlIframe.vue";
+import { loadZipHtmlCode } from "./utils";
 
 // import css from "./tests/index.css?raw";
 // import html from "./tests/index.html?raw";
 // import js from "./tests/index.js?raw";
 
-const tab = ref('result');
+const tab = ref("result");
 
-interface AppProps {
+const props = defineProps<{
   html?: string;
   js?: string;
   css?: string;
   src?: string;
-}
-
-const props = defineProps<AppProps>();
+}>();
 const data = reactive({
   html: props.html,
   css: props.css,
@@ -26,7 +24,7 @@ const data = reactive({
 });
 
 onMounted(() => {
-  if (props.src?.includes('.zip')) {
+  if (props.src?.includes(".zip")) {
     loadZipHtmlCode(props.src).then((result) => {
       data.html = result.html;
       data.css = result.css;

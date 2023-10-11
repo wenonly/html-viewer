@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 
-interface HtmlIframeProps {
+const props = defineProps<{
   html?: string;
   javascript?: string;
   css?: string;
-}
-const props = defineProps<HtmlIframeProps>();
+}>();
 const iframeWrapRef = ref<HTMLIFrameElement>();
 
 const createIframe = () => {
