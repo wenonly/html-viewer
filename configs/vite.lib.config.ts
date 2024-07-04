@@ -1,7 +1,7 @@
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import analyze from 'rollup-plugin-analyzer';
 import { defineConfig } from 'vite';
-import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +15,7 @@ export default defineConfig({
       name: 'HtmlViewer',
     },
     rollupOptions: {
-      plugins: process.env.ANALYZE ? [visualizer({ open: true })] : undefined,
+      plugins: process.env.ANALYZE ? [analyze({})] : undefined,
       input: ['src/index.ts'],
       output: [
         {
