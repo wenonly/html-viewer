@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from "vue";
 
 const props = defineProps<{
+  previewHtml?: string;
   html?: string;
   javascript?: string;
   css?: string;
@@ -13,19 +14,32 @@ const createIframe = () => {
   iframe.style.height = "100%";
   iframe.style.width = "100%";
 
-  iframe.onload = () => {
-    const cssDom = document.createElement("style");
-    cssDom.innerHTML = props.css ?? "";
-    cssDom.id = "iframe-css";
-    const jsDom = document.createElement("script");
-    jsDom.innerHTML = props.javascript ?? "";
-    jsDom.id = "iframe-js";
-    if (iframe.contentDocument) {
-      iframe.contentDocument.head.appendChild(cssDom);
-      iframe.contentDocument.body.innerHTML = props.html ?? "";
-      iframe.contentDocument.body.appendChild(jsDom);
+  if (props.previewHtml) {
+    const html = props.previewHtml
+    iframe.onload = () => {
+      const doc = iframe.contentWindow?.document;
+      if (doc) {
+        doc.open();
+        doc.write(html);
+        doc.close();
+      }
     }
-  };
+  } else {
+    iframe.onload = () => {
+      const cssDom = document.createElement("style");
+      cssDom.innerHTML = props.css ?? "";
+      cssDom.id = "iframe-css";
+      const jsDom = document.createElement("script");
+      jsDom.innerHTML = props.javascript ?? "";
+      jsDom.id = "iframe-js";
+      if (iframe.contentDocument) {
+        iframe.contentDocument.head.appendChild(cssDom);
+        iframe.contentDocument.body.innerHTML = props.html ?? "";
+        iframe.contentDocument.body.appendChild(jsDom);
+      }
+    };
+  }
+
 
   return iframe;
 };

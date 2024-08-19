@@ -56,7 +56,7 @@ onMounted(() => {
 <template>
   <el-tabs v-model="tab" class="html-tabs">
     <el-tab-pane label="效果" name="result">
-      <HtmlIframe v-if="data.previewHtml" :html="data.previewHtml" />
+      <HtmlIframe v-if="data.previewHtml" :previewHtml="data.previewHtml" />
       <HtmlIframe v-else :html="data.html" :javascript="data.js" :css="data.css" />
     </el-tab-pane>
     <el-tab-pane
