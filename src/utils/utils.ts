@@ -103,6 +103,8 @@ export const loadZipHtmlCode = (
 
 // loadZipHtmlCode('http://localhost:5173/code.zip');
 
+// loadZipHtmlCode('http://localhost:5173/code.zip');
+
 export const getEditorTools = (view: EditorView) => {
   // doc state
   const getDoc = () => view.state.doc.toString();
@@ -122,3 +124,9 @@ export const getEditorTools = (view: EditorView) => {
     setDoc,
   };
 };
+
+export function omit(obj: Record<string, any>, excludes: string[]) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => !excludes.includes(key))
+  );
+}

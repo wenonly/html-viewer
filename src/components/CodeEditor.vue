@@ -6,9 +6,9 @@ import { javascript } from "@codemirror/lang-javascript";
 import { EditorView, keymap } from "@codemirror/view";
 import { basicSetup } from "codemirror";
 import { onMounted, ref, watch } from "vue";
-import { getEditorTools } from "../utils";
+import { getEditorTools } from "../utils/utils";
 
-const themeExts = {
+const themeExts: Record<string, () => ReturnType<typeof javascript>> = {
   html,
   javascript,
   css,
@@ -18,7 +18,7 @@ const codeWrapper = ref<HTMLDivElement>();
 const editor = ref<EditorView>();
 
 const props = defineProps<{
-  theme?: "javascript" | "html" | "css";
+  theme?: "javascript" | "html" | "css" | string;
   modelValue?: string;
 }>();
 const emit = defineEmits<{
@@ -30,9 +30,10 @@ onMounted(() => {
     parent: codeWrapper.value,
     doc: props.modelValue,
     extensions: [
+      EditorView.editable.of(false), // 设置只读
       keymap.of(defaultKeymap),
       basicSetup,
-      props.theme ? themeExts[props.theme]() : themeExts.javascript(),
+      themeExts[props.theme ?? ""]?.() ?? themeExts.javascript(),
       EditorView.updateListener.of((viewUpdate) => {
         // https://discuss.codemirror.net/t/codemirror-6-proper-way-to-listen-for-changes/2395/11
         // console.log('update', viewUpdate, viewUpdate.docChanged, viewUpdate.focusChanged)

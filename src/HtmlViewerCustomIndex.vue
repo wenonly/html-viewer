@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { createHtmlViewer } from ".";
+import { ViewerProps } from "./commonType";
+import { createHtmlViewer } from "./utils/createViewer";
+import { omit } from "./utils/utils";
 
-const props = defineProps<{
-  src?: string;
+interface CustomViewerProps extends ViewerProps {
   iframeWidth?: string;
   iframeHeight?: string;
   wrapperStyle?: string;
-}>();
+}
+
+const props = defineProps<CustomViewerProps>();
 const wrapRef = ref<HTMLElement>();
 
 onMounted(() => {
   const iframe = createHtmlViewer({
-    src: props.src,
+    ...omit(props, ["iframeWidth", "iframeHeight", "wrapperStyle"]),
     iframeStyle: {
       width: props.iframeWidth,
       height: props.iframeHeight,
