@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ElTabPane, ElTabs } from "element-plus";
-import { readJsonpData } from "jsonp-data/lib/read.browser";
+import jsonpRead from "jsonp-data/lib/read.browser";
 import { onMounted, reactive, ref } from "vue";
 import { ViewerData, ViewerProps } from "./commonType";
 import CodeEditor from "./components/CodeEditor.vue";
@@ -21,7 +21,7 @@ const data = reactive<ViewerProps>({
 
 onMounted(() => {
   if (props.src?.includes(".js")) {
-    readJsonpData<ViewerData>(props.src).then((viewerData) => {
+    jsonpRead.readJsonpData<ViewerData>(props.src).then((viewerData) => {
       data.previewHtml = viewerData.previewHtml;
       data.files = viewerData.files;
     });
@@ -57,7 +57,12 @@ onMounted(() => {
   <el-tabs v-model="tab" class="html-tabs">
     <el-tab-pane label="效果" name="result">
       <HtmlIframe v-if="data.previewHtml" :previewHtml="data.previewHtml" />
-      <HtmlIframe v-else :html="data.html" :javascript="data.js" :css="data.css" />
+      <HtmlIframe
+        v-else
+        :html="data.html"
+        :javascript="data.js"
+        :css="data.css"
+      />
     </el-tab-pane>
     <el-tab-pane
       v-for="(item, index) of data.files"
