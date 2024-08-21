@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ElTabPane, ElTabs } from "element-plus";
-import jsonpRead from "jsonp-data/lib/read.browser";
+import * as jsonpRead from "jsonp-data/lib/read.browser";
 import { onMounted, reactive, ref } from "vue";
 import { ViewerData, ViewerProps } from "./commonType";
 import CodeEditor from "./components/CodeEditor.vue";
