@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ElTabPane, ElTabs } from "element-plus";
-import * as jsonpRead from "jsonp-data/lib/read.browser";
+import { readJsonpData } from "jsonp-data/lib/read.browser";
 import { onMounted, reactive, ref } from "vue";
 import { ViewerData, ViewerProps } from "./commonType";
 import CodeEditor from "./components/CodeEditor.vue";
@@ -20,9 +20,9 @@ const data = reactive<ViewerProps>({
 });
 
 onMounted(() => {
-  if (props.src?.includes(".js")) {
-    jsonpRead.readJsonpData<ViewerData>(props.src).then((viewerData) => {
-      data.previewHtml = viewerData.previewHtml;
+  if (props.src?.endsWith(".js")) {
+    readJsonpData<ViewerData>(props.src).then((viewerData) => {
+      data.previewHtml = viewerData.html;
       data.files = viewerData.files;
     });
   } else if (props.src?.includes(".zip")) {

@@ -1,5 +1,5 @@
 interface ViewerData {
-  previewHtml?: string;
+  html?: string;
   files?: {
     fileName: string;
     content: string;
@@ -8,6 +8,7 @@ interface ViewerData {
 }
 
 interface ViewerProps extends ViewerData {
+  previewHtml?: string;
   src?: string;
   // 兼容旧数据
   html?: string;
