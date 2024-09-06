@@ -1,13 +1,20 @@
 <script setup lang="ts">
-import { ElTabPane, ElTabs } from "element-plus";
+import { ElTabPane, ElTabs, vLoading } from "element-plus";
 import { readJsonpData } from "jsonp-data/lib/read.browser";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, defineOptions } from "vue";
 import { ViewerData, ViewerProps } from "./commonType";
 import CodeEditor from "./components/CodeEditor.vue";
 import HtmlIframe from "./components/HtmlIframe.vue";
 import { loadZipHtmlCode } from "./utils/utils";
 
+defineOptions({
+  directives: {
+    vLoading,
+  },
+});
+
 const tab = ref("result");
+const loading = ref(false);
 
 const props = defineProps<ViewerProps>();
 const data = reactive<ViewerProps>({
@@ -19,15 +26,16 @@ const data = reactive<ViewerProps>({
   js: props.js,
 });
 
-onMounted(() => {
-  if (props.src?.endsWith(".js")) {
-    readJsonpData<ViewerData>(props.src).then((viewerData) => {
+onMounted(async () => {
+  loading.value = true;
+  try {
+    if (props.src?.endsWith(".js")) {
+      const viewerData = await readJsonpData<ViewerData>(props.src);
       data.previewHtml = viewerData.html;
       data.files = viewerData.files;
-    });
-  } else if (props.src?.includes(".zip")) {
-    // 兼容旧的方式
-    loadZipHtmlCode(props.src).then((result) => {
+    } else if (props.src?.includes(".zip")) {
+      // 兼容旧的方式
+      const result = await loadZipHtmlCode(props.src);
       data.html = result.html;
       data.css = result.css;
       data.js = result.js;
@@ -48,13 +56,16 @@ onMounted(() => {
           type: "js",
         },
       ];
-    });
+    }
+  } catch (error) {
+    console.error(error);
   }
+  loading.value = false;
 });
 </script>
 
 <template>
-  <el-tabs v-model="tab" class="html-tabs">
+  <el-tabs v-loading="loading" v-model="tab" class="html-tabs">
     <el-tab-pane label="效果" name="result">
       <HtmlIframe v-if="data.previewHtml" :previewHtml="data.previewHtml" />
       <HtmlIframe

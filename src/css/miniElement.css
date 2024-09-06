@@ -1,4 +1,4 @@
-.el-tabs {
+:root {
   --el-tabs-header-height: 40px;
   --el-border-color-light: #e4e7ed;
   --el-transition-duration: 0.3s;
@@ -14,6 +14,8 @@
   --el-font-size-base: 14px;
   --el-text-color-primary: #303133;
   --el-text-color-secondary: #909399;
+  --el-mask-color: rgba(255, 255, 255, 0.9);
+  --el-loading-spinner-size: 42px;
 }
 
 .el-tabs {
@@ -95,8 +97,8 @@
   font-size: 14px;
   color: var(--el-text-color-primary);
   position: relative;
-  font-family: 'Lato', 'Helvetica Neue', 'Arial', 'Verdana', 'Tahoma',
-    'Lucida Sans', 'FreeSans', 'Lucida Sans Unicode', 'Luxi Sans', sans-serif;
+  font-family: "Lato", "Helvetica Neue", "Arial", "Verdana", "Tahoma",
+    "Lucida Sans", "FreeSans", "Lucida Sans Unicode", "Luxi Sans", sans-serif;
 }
 
 .el-tabs__item:hover {
@@ -171,4 +173,61 @@
   fill: currentColor;
   color: var(--color);
   font-size: inherit;
+}
+
+/* loading */
+.example-showcase .el-loading-mask {
+  z-index: 9;
+}
+.el-loading-mask {
+  position: absolute;
+  z-index: 2000;
+  background-color: var(--el-mask-color);
+  margin: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: opacity var(--el-transition-duration);
+}
+.el-loading-spinner {
+  top: 50%;
+  margin-top: calc((0px - var(--el-loading-spinner-size)) / 2);
+  width: 100%;
+  text-align: center;
+  position: absolute;
+}
+.el-loading-spinner .circular {
+  display: inline;
+  height: var(--el-loading-spinner-size);
+  width: var(--el-loading-spinner-size);
+  animation: loading-rotate 2s linear infinite;
+}
+.el-loading-spinner .path {
+  animation: loading-dash 1.5s ease-in-out infinite;
+  stroke-dasharray: 90, 150;
+  stroke-dashoffset: 0;
+  stroke-width: 2;
+  stroke: var(--el-color-primary);
+  stroke-linecap: round;
+  fill: none;
+}
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loading-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -40px;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -120px;
+  }
 }
